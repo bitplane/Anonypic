@@ -28,6 +28,7 @@ public class AnonypicUploader extends Service {
 	private boolean mIsUploaderRunning = false;
 	private Lock    mArrayLock = new ReentrantLock();
 	private String  mAppTag = "Anonypic";
+	private int     mStartId;
 	
 	/** class which represents an active upload*/
 	private class ActiveUpload {
@@ -57,8 +58,8 @@ public class AnonypicUploader extends Service {
     }
     
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-    	
+    public void onStart(Intent intent, int startId) {
+    	mStartId = startId;
     	if (intent != null) {
 	        // is this a SEND or CANCEL intent?
 	        if (intent.getAction().equals("net.bitplane.android.anonypic.SEND")) {
@@ -70,7 +71,6 @@ public class AnonypicUploader extends Service {
 	        	cancelUpload(cancelID);
 	        }
     	}
-        return START_STICKY;
     }
     /** Cancel an upload with the given ID */
     private void cancelUpload(int cancelID) {
@@ -183,6 +183,7 @@ public class AnonypicUploader extends Service {
 	    		mIsUploaderRunning = false;
 	    	}
 	    	Log.d(mAppTag, "All uploads complete, upload thread exiting");
+	    	stopSelf(mStartId);
 	    }
     		    
 		private void uploadToBayImg(ActiveUpload uploadToStart) {
