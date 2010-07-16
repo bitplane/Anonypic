@@ -1,5 +1,7 @@
 package net.bitplane.android.anonypic;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ public class AnonypicUI extends android.app.Activity {
 			newIntent.setData(intent.getData());
 			newIntent.putExtras(intent.getExtras()); // contains stream to data
 			context.startService(newIntent); // launch the anonypic upload service
+			
 			finish(); // close the UI
 		}
 		// otherwise, we'll open the settings page... (todo)

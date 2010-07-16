@@ -1,7 +1,6 @@
 package net.bitplane.android.anonypic;
 
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -28,6 +27,7 @@ public class AnonypicUploader extends Service {
 	private int     mHighestID = 0;
 	private boolean mIsUploaderRunning = false;
 	private Lock    mArrayLock = new ReentrantLock();
+	private String  mAppTag = "Anonypic";
 	
 	/** class which represents an active upload*/
 	private class ActiveUpload {
@@ -38,10 +38,17 @@ public class AnonypicUploader extends Service {
 	}
 	
 	/** Array of all active uploads*/
-	NotificationManager     mNotificationManager  = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-	ArrayList<ActiveUpload> mActiveUploads        = new ArrayList<ActiveUpload>();
+	NotificationManager     mNotificationManager;
+	ArrayList<ActiveUpload> mActiveUploads;
 	
-    public AnonypicUploader() {
+    public AnonypicUploader() {    	
+    }
+    
+    @Override
+    public void onCreate() {
+    	Context context       = getApplicationContext();
+    	mNotificationManager  = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    	mActiveUploads        = new ArrayList<ActiveUpload>();
     }
     
     @Override
@@ -51,23 +58,23 @@ public class AnonypicUploader extends Service {
     
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        
-        // is this a SEND or CANCEL intent?
-        if (intent.getAction().equals("net.bitplane.android.anonypic.SEND")) {
-        	createUpload(intent);
-        }
-        else if (intent.getAction().equals("net.bitplane.android.anonypic.CANCEL_SEND")) {
-        	// cancel the upload
-        	int cancelID = intent.getData().getPort();
-        	cancelUpload(cancelID);
-        }
-        
+    	
+    	if (intent != null) {
+	        // is this a SEND or CANCEL intent?
+	        if (intent.getAction().equals("net.bitplane.android.anonypic.SEND")) {
+	        	createUpload(intent);
+	        }
+	        else if (intent.getAction().equals("net.bitplane.android.anonypic.CANCEL_SEND")) {
+	        	// cancel the upload
+	        	int cancelID = intent.getData().getPort();
+	        	cancelUpload(cancelID);
+	        }
+    	}
         return START_STICKY;
     }
     /** Cancel an upload with the given ID */
     private void cancelUpload(int cancelID) {
-    	mArrayLock.lock();
-    	try {
+    	synchronized(mArrayLock) {
 	    	for (ActiveUpload u : mActiveUploads)
 	    		if (u.ID == cancelID) {
 	    			// cancel the upload
@@ -78,9 +85,6 @@ public class AnonypicUploader extends Service {
 	    			break; // stop looking!
 	    		}
     	}
-    	finally {
-    		mArrayLock.unlock();
-    	}
     }
     
     private void createUpload(Intent intent) {
@@ -89,7 +93,7 @@ public class AnonypicUploader extends Service {
         int icon                  = R.drawable.notify; // need smaller notification icon at some point
         Uri dataStreamUri         = (Uri) intent.getExtras().getParcelable(Intent.EXTRA_STREAM);
         String filePath           = dataStreamUri.getPath();
-        CharSequence tickerText   = "Uploading " + filePath;
+        CharSequence tickerText   = "Queued " + filePath;
         long when                 = System.currentTimeMillis();
         Notification notification = new Notification(icon, tickerText, when);
     	
@@ -114,10 +118,9 @@ public class AnonypicUploader extends Service {
     	newUpload.URI          = dataStreamUri;
     	
     	// lock while mutating the array
-    	mArrayLock.lock();
-    	mActiveUploads.add(newUpload);
-    	mArrayLock.unlock();
-    	
+    	synchronized (mArrayLock) {
+    		mActiveUploads.add(newUpload);
+    	}
     	// if the upload thread is inactive, now would be a good time to start it
     	startUploads();
     }
@@ -126,14 +129,10 @@ public class AnonypicUploader extends Service {
 		ArrayList<ActiveUpload> newList = new ArrayList<ActiveUpload>();
 		
 		// lock while traversing array list
-		mArrayLock.lock();
-		try {
+		synchronized (mArrayLock) {
 			for (ActiveUpload u : mActiveUploads)
 				if (!u.IsCancelled)
 					newList.add(u);
-		}
-		finally {
-			mArrayLock.unlock();
 		}
 		
 		return newList;
@@ -142,15 +141,11 @@ public class AnonypicUploader extends Service {
     private void clearInactiveUploads() {
 		ArrayList<ActiveUpload> newList = new ArrayList<ActiveUpload>();
 		
-		mArrayLock.lock();
-		try {
+		synchronized (mArrayLock) {
 			for (ActiveUpload u : mActiveUploads)
 				if (u.IsCancelled)
 					newList.add(u);
 			mActiveUploads.removeAll(newList);
-		}
-		finally {
-			mArrayLock.unlock();
 		}
     }
     
@@ -167,6 +162,7 @@ public class AnonypicUploader extends Service {
     class WorkerThread extends Thread
     {
     	public void run() {
+    		Log.d(mAppTag, "Upload thread started");
     		mIsUploaderRunning = true;
 	    	try {
 	    		ArrayList<ActiveUpload> processList = getActiveUploads(); 
@@ -186,6 +182,7 @@ public class AnonypicUploader extends Service {
 	    	finally {
 	    		mIsUploaderRunning = false;
 	    	}
+	    	Log.d(mAppTag, "All uploads complete, upload thread exiting");
 	    }
     		    
 		private void uploadToBayImg(ActiveUpload uploadToStart) {
@@ -197,7 +194,11 @@ public class AnonypicUploader extends Service {
 			String removalCode = "todo-randomize";
 			String lineEnd     = "\r\n";
 			String twoHyphens  = "--";
-			String boundary    = "AnonypicBoundary*asd734bb401!!mdsbc8l120*";
+			String boundary    = "----AnonypicBoundary*asd734bb401";
+			String codeHeader  = "Content-Disposition: form-data; name=\"code\"" + lineEnd;
+			String tagsHeader  = "Content-Disposition: form-data; name=\"tags\"" + lineEnd;
+			String fileHeader  = "Content-Disposition: form-data; name=\"file\"; filename=\"Anonypic for Android mobiles\"" + lineEnd;
+			String tags        = "Anonypic";
 			
 			try {
 				connectURL = new URL("http://upload.bayimg.com/upload");
@@ -211,44 +212,61 @@ public class AnonypicUploader extends Service {
 				conn.setDoOutput(true);
 				conn.setUseCaches(false);
 	
-				// send HTTP headers
+				// calculate content length
 				
+				dataStream = getContentResolver().openInputStream(uploadToStart.URI);		
+				int fileSize = dataStream.available();
+				
+				int boundaryLen = twoHyphens.length() + boundary.length() + lineEnd.length();
+				
+				int reqSize = boundaryLen + codeHeader.length() + lineEnd.length() + removalCode.length() + lineEnd.length() // removal code
+							+ boundaryLen + tagsHeader.length() + lineEnd.length() + tags.length() + lineEnd.length() // tags
+							+ boundaryLen + fileHeader.length() + lineEnd.length() + fileSize // file data
+							+ lineEnd.length() + twoHyphens.length() + boundaryLen; // end boundary
+				
+				// send HTTP headers
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("Connection", "Keep-Alive");
-				conn.setRequestProperty("User-Agent", "Anonypic photo sharing app for Android handsets by gaz@bitplane.net");
+				conn.setRequestProperty("User-Agent", "Anonypic photo sharing app for Android handsets");
+				conn.setRequestProperty("Referer", "http://bayimg.com/");
+				conn.setRequestProperty("Content-Length", String.valueOf(reqSize));
+				conn.setRequestProperty("Cache-Control", "max-age=0");
+				conn.setRequestProperty("Origin", "http://bayimg.com");
 				conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-	
-				DataOutputStream dos = new DataOutputStream( conn.getOutputStream() );
+				conn.setRequestProperty("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");				
+				
+				DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 				
 				/**
 				 * This multipart form consists of three sections: removal code, tags, file data
 				 */
 	
 				dos.writeBytes(twoHyphens + boundary + lineEnd);
-				dos.writeBytes("Content-Disposition: form-data; name=\"code\"" + lineEnd);
+				dos.writeBytes(codeHeader);
 				dos.writeBytes(lineEnd);
 				dos.writeBytes(removalCode + lineEnd);
 	
 				dos.writeBytes(twoHyphens + boundary + lineEnd);
-				dos.writeBytes("Content-Disposition: form-data; name=\"tags\"" + lineEnd);
+				dos.writeBytes(tagsHeader);
 				dos.writeBytes(lineEnd);
-				dos.writeBytes("Anonypic" + lineEnd);
+				dos.writeBytes(tags + lineEnd);
 				
 				dos.writeBytes(twoHyphens + boundary + lineEnd);
-				dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"irrelevant\"" + lineEnd);
+				dos.writeBytes(fileHeader);
 				dos.writeBytes(lineEnd);
 	
 				// buffered file upload
-				dataStream = getContentResolver().openInputStream(uploadToStart.URI);		
-				int bytesAvailable = dataStream.available();
 				int maxBufferSize = 1024;
-				int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				int bytesAvailable = fileSize;
+				int bufferSize = Math.min(fileSize, maxBufferSize);
 				byte[] buffer = new byte[bufferSize];	
 	
 				// reset the notification
 				
-				int bytesRead = dataStream.read(buffer, 0, bufferSize);
-	
+				int bytesRead   = dataStream.read(buffer, 0, bufferSize);
+				int percent     = 0; 
+				int lastPercent = -2;
+				
 				while (bytesRead > 0 && uploadToStart.IsCancelled == false) {
 					if (uploadToStart.IsCancelled)
 						return;
@@ -257,9 +275,27 @@ public class AnonypicUploader extends Service {
 					bytesAvailable = dataStream.available();
 					bufferSize = Math.min(bytesAvailable, maxBufferSize);
 					bytesRead = dataStream.read(buffer, 0, bufferSize);
-					// todo: update notification with percentage
 					
+					percent = (int)(100.0f * ( ((float)fileSize - (float)bytesAvailable) / (float)fileSize));
+					
+					if (percent > lastPercent + 1) {
+						// update notification with percentage
+						uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
+								  "Uploading", 
+								  String.valueOf(percent) + "%", 
+								  uploadToStart.Notification.contentIntent);
+						mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
+						lastPercent = percent;
+					}
 				}
+				// update notification with percentage
+				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
+						  "Anonymizing", 
+						  "Removing EXIF metadata", 
+						  uploadToStart.Notification.contentIntent);
+				mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
+				lastPercent = percent;
+
 				
 				// send end of multipart block
 	
@@ -269,8 +305,10 @@ public class AnonypicUploader extends Service {
 				// close streams
 				dataStream.close();
 				dos.flush();
-	
+				dos.close();
+				
 				InputStream is = conn.getInputStream();
+
 				// retrieve the response from server
 				int ch;
 	
@@ -279,13 +317,46 @@ public class AnonypicUploader extends Service {
 					b.append( (char)ch );
 				}
 				String s = b.toString(); 
-				Log.i("Response",s);
-				dos.close();
+				//Log.d(mAppTag, s);
+				
+				String leftBoundary  = "input type=\"text\" value=\"";
+				String rightBoundary = "\" size=\"50\"";
+				if (!s.contains(leftBoundary))
+					throw new Exception("Bayimg didn't return a link");
+				int start = s.indexOf(leftBoundary) + leftBoundary.length();
+				String urlString = s.substring(start, s.indexOf(rightBoundary));
+				
+				Log.d(mAppTag, urlString);
+
+				Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(urlString));
+				PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, browserIntent, 0);
+				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
+															  "Upload complete", 
+															  urlString, 
+															  pendingIntent);
+				uploadToStart.Notification.flags |= Notification.FLAG_AUTO_CANCEL;
+				
+				mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
+		    	
 			}
-			catch (IOException ioe) {
-				// update notification
-				Log.e("ERROR", ioe.getMessage(), ioe);
+			catch (Exception e) {
+				// log the error message
+				Log.e(mAppTag, e.getMessage(), e);
+
+				Intent browserIntent = new Intent("android.intent.action.VIEW", uploadToStart.URI);
+				PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, browserIntent, 0);
+				
+				// update the notification
+				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
+															  "Upload failed", 
+															  "Press to return to image", 
+															  pendingIntent);
+				uploadToStart.Notification.flags |= Notification.FLAG_AUTO_CANCEL;
+				
+				mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
 			}
+			// end the upload
+			uploadToStart.IsCancelled = true;
 		}
     }
 }
