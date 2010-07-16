@@ -1,0 +1,3 @@
+bayimg.com is an anonymous, uncensored photo sharing service by the people behind The Pirate Bay. Anonymity is provided by removing EXIF metadata like phone model and location, there is also no need for an account.
+
+This app simply adds an extra option to your share image menu, it has no user interface.

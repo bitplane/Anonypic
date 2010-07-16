@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+
+
+
+
+
+<string name="upload_queued">Upload ist in der warteschlange</string>
+<string name="press_to_cancel">Klicken sie auf abbrechen</string>
+<string name="uploading">Hochladen</string>
+<string name="anonymizing">Anonymisierungs</string>
+<string name="anonymizing_info">Löschen von EXIF-metadaten</string>
+<string name="upload_failed">Upload ist fehlgeschlagen</string>
+<string name="upload_failed_info">View das bild</string>
+<string name="upload_complete">Upload abgeschlossen</string>
+</resources>

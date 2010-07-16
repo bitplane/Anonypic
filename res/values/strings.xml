@@ -7,4 +7,12 @@
 
 
 <string name="app_name">Anonypic</string>
+<string name="upload_queued">Upload queued</string>
+<string name="press_to_cancel">Press to cancel</string>
+<string name="uploading">Uploading</string>
+<string name="anonymizing">Anonymizing</string>
+<string name="anonymizing_info">Removing EXIF metadata</string>
+<string name="upload_failed">Upload failed</string>
+<string name="upload_failed_info">Click to return to image</string>
+<string name="upload_complete">Upload complete</string>
 </resources>

@@ -93,13 +93,13 @@ public class AnonypicUploader extends Service {
         int icon                  = R.drawable.notify; // need smaller notification icon at some point
         Uri dataStreamUri         = (Uri) intent.getExtras().getParcelable(Intent.EXTRA_STREAM);
         String filePath           = dataStreamUri.getPath();
-        CharSequence tickerText   = "Queued " + filePath;
+        CharSequence tickerText   = getString(R.string.upload_queued);
         long when                 = System.currentTimeMillis();
         Notification notification = new Notification(icon, tickerText, when);
     	
     	// Define the Notification's expanded message and Intent (which will cancel it)
     	Context context           = getApplicationContext();
-    	CharSequence contentText  = "Press to cancel upload";
+    	CharSequence contentText  = getString(R.string.press_to_cancel);
     	Intent notificationIntent = new Intent();
     	notificationIntent.setAction("net.bitplane.android.anonypic.CANCEL_SEND");
 
@@ -282,7 +282,7 @@ public class AnonypicUploader extends Service {
 					if (percent > lastPercent + 1) {
 						// update notification with percentage
 						uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
-								  "Uploading", 
+								  getString(R.string.uploading), 
 								  String.valueOf(percent) + "%", 
 								  uploadToStart.Notification.contentIntent);
 						mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
@@ -291,8 +291,8 @@ public class AnonypicUploader extends Service {
 				}
 				// update notification with percentage
 				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
-						  "Anonymizing", 
-						  "Removing EXIF metadata", 
+						  getString(R.string.anonymizing), 
+						  getString(R.string.anonymizing_info), 
 						  uploadToStart.Notification.contentIntent);
 				mNotificationManager.notify(uploadToStart.ID, uploadToStart.Notification);
 				lastPercent = percent;
@@ -332,7 +332,7 @@ public class AnonypicUploader extends Service {
 				Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(urlString));
 				PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, browserIntent, 0);
 				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
-															  "Upload complete", 
+															  getString(R.string.upload_complete), 
 															  urlString, 
 															  pendingIntent);
 				uploadToStart.Notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -349,8 +349,8 @@ public class AnonypicUploader extends Service {
 				
 				// update the notification
 				uploadToStart.Notification.setLatestEventInfo(getApplicationContext(), 
-															  "Upload failed", 
-															  "Press to return to image", 
+															  getString(R.string.upload_failed), 
+															  getString(R.string.upload_failed_info), 
 															  pendingIntent);
 				uploadToStart.Notification.flags |= Notification.FLAG_AUTO_CANCEL;
 				

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+
+
+
+
+
+<string name="upload_queued">Téléchargement attente</string>
+<string name="press_to_cancel">Appuyez sur pour interrompre</string>
+<string name="uploading">Envoi de la photo</string>
+<string name="anonymizing">Anonymisation</string>
+<string name="anonymizing_info">Retrait de métadonnées EXIF</string>
+<string name="upload_failed">Chargement a échoué</string>
+<string name="upload_failed_info">Appuyez sur pour voir la photo</string>
+<string name="upload_complete">Posté okay!</string>
+</resources>
