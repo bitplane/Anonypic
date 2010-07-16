@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="193.778"
+   height="193.78"
+   viewBox="0 0 193.778 193.78"
+   xml:space="preserve"
+   id="svg2"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="Earlyswerver_UK_Speed_Camera_Sign.svg"><metadata
+   id="metadata24"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs22"><inkscape:perspective
+     sodipodi:type="inkscape:persp3d"
+     inkscape:vp_x="0 : 97.411499 : 1"
+     inkscape:vp_y="0 : 1000 : 0"
+     inkscape:vp_z="236.196 : 97.411499 : 1"
+     inkscape:persp3d-origin="118.098 : 64.940999 : 1"
+     id="perspective26" /></defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="884"
+   inkscape:window-height="644"
+   id="namedview20"
+   showgrid="false"
+   inkscape:zoom="1.211356"
+   inkscape:cx="96.887999"
+   inkscape:cy="72.440499"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="g4" />
+    <g
+   id="g4"
+   transform="translate(-21.210001,23.928004)">
+	
+	<path
+   d="m 121.92215,5.9531695 -72.285446,0 c -11.14012,0 -20.171492,8.9558935 -20.171492,20.0018985 l 0,95.003662 c 0,11.046 9.031372,20.00003 20.171492,20.00003 l 72.285446,0 c 11.14106,0 20.17243,-8.95403 20.17243,-20.00003 l 0,-95.003662 c 0,-11.046005 -9.03137,-20.0018985 -20.17243,-20.0018985 z M 74.496273,126.94485 c -15.653943,0 -28.34371,-12.6879 -28.34371,-28.339049 0,-15.656739 12.689767,-28.34371 28.34371,-28.34371 15.652079,0 28.341847,12.686971 28.341847,28.34371 -9.4e-4,15.650219 -12.689768,28.339049 -28.341847,28.339049 z M 110.00861,46.696845 c -8.67541,0 -15.707989,-7.03258 -15.707989,-15.707058 0,-8.676341 7.032579,-15.707057 15.707989,-15.707057 8.67541,0 15.70799,7.031648 15.70799,15.707057 -9.4e-4,8.674478 -7.03258,15.707058 -15.70799,15.707058 z"
+   id="path8" />
+	<circle
+   cx="107.645"
+   cy="51.839001"
+   r="9.5279999"
+   id="circle10"
+   sodipodi:cx="107.645"
+   sodipodi:cy="51.839001"
+   sodipodi:rx="9.5279999"
+   sodipodi:ry="9.5279999"
+   d="m 117.173,51.839001 c 0,5.262169 -4.26583,9.528 -9.528,9.528 -5.26217,0 -9.528003,-4.265831 -9.528003,-9.528 0,-5.262169 4.265833,-9.528 9.528003,-9.528 5.26217,0 9.528,4.265831 9.528,9.528 z"
+   transform="matrix(0.93183778,0,0,0.93183778,9.7009329,-17.315751)" />
+	<circle
+   cx="69.491997"
+   cy="124.31"
+   r="20.978001"
+   id="circle12"
+   sodipodi:cx="69.491997"
+   sodipodi:cy="124.31"
+   sodipodi:rx="20.978001"
+   sodipodi:ry="20.978001"
+   d="m 90.469997,124.31 c 0,11.58583 -9.39217,20.978 -20.978,20.978 -11.58583,0 -20.978001,-9.39217 -20.978001,-20.978 0,-11.58583 9.392171,-20.978 20.978001,-20.978 11.58583,0 20.978,9.39217 20.978,20.978 z"
+   transform="matrix(0.93183778,0,0,0.93183778,9.7009329,-17.315751)" />
+	<rect
+   width="8.3371525"
+   height="76.725655"
+   x="147.95863"
+   y="29.575254"
+   id="rect14" />
+	<rect
+   width="8.3371525"
+   height="72.793297"
+   x="162.5596"
+   y="33.507618"
+   id="rect16" />
+	<polygon
+   points="188.554,126.068 214.988,126.068 214.988,79.89 214.988,79.89 188.554,79.89 188.554,66.341 179.604,66.341 179.604,138.997 148.358,138.997 148.358,148.058 179.604,148.058 188.299,148.058 188.554,148.058 "
+   id="polygon18"
+   transform="matrix(0.93183778,0,0,0.93183778,9.7009329,-17.315751)" />
+    </g>
+</svg>
