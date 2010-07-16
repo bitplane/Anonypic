@@ -189,9 +189,9 @@ public class AnonypicUploader extends Service {
 			
 			InputStream dataStream; 
 			URL connectURL;
-			
+			double randCode    = Math.random();
 			String fileName    = "upload";
-			String removalCode = "todo-randomize";
+			String removalCode = "removal denied " + String.valueOf(randCode);
 			String lineEnd     = "\r\n";
 			String twoHyphens  = "--";
 			String boundary    = "----AnonypicBoundary*asd734bb401";
