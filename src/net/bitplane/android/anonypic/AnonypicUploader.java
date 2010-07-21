@@ -325,7 +325,7 @@ public class AnonypicUploader extends Service {
 				if (!s.contains(leftBoundary))
 					throw new Exception("Bayimg didn't return a link");
 				int start = s.indexOf(leftBoundary) + leftBoundary.length();
-				String urlString = s.substring(start, s.indexOf(rightBoundary));
+				String urlString = s.substring(start, s.indexOf(rightBoundary, start));
 				
 				Log.d(mAppTag, urlString);
 
