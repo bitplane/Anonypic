@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Prześlij kolejce</string>
+<string name="press_to_cancel">Kliknij, aby anulować</string>
+<string name="uploading">Przesyłanie</string>
+<string name="anonymizing">Anonimizerów</string>
+<string name="anonymizing_info">Usuwanie metadanych EXIF</string>
+<string name="upload_failed">Prześlij nie</string>
+<string name="upload_failed_info">Kliknij, aby zobaczyć zdjęcie</string>
+<string name="upload_complete">Przesłać kompletne</string>
+</resources>
