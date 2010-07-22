@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Добавить в очереди</string>
+<string name="press_to_cancel">Нажмите, чтобы отменить</string>
+<string name="uploading">Загружаю</string>
+<string name="anonymizing">Анонимное</string>
+<string name="anonymizing_info">Удаление метаданных EXIF</string>
+<string name="upload_failed">Сбой при загрузке</string>
+<string name="upload_failed_info">Нажмите для просмотра изображений</string>
+<string name="upload_complete">Загрузка завершена</string>
+</resources>
