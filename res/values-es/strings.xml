@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Subir está en la cola</string>
+<string name="press_to_cancel">Pulse para cancelar</string>
+<string name="uploading">Subida</string>
+<string name="anonymizing">Haciendo anónimos</string>
+<string name="anonymizing_info">Extracción de metadatos EXIF</string>
+<string name="upload_failed">Error de subida</string>
+<string name="upload_failed_info">Haz clic aquí para ver la foto</string>
+<string name="upload_complete">La subida ha finalizado</string>
+</resources>
