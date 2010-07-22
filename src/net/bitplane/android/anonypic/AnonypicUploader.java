@@ -160,7 +160,8 @@ public class AnonypicUploader extends Service {
      */
     class WorkerThread extends Thread
     {
-    	public void run() {
+    	@Override
+		public void run() {
     		Log.d(mAppTag, "Upload thread started");
     		mIsUploaderRunning = true;
 	    	try {
@@ -275,7 +276,7 @@ public class AnonypicUploader extends Service {
 					bufferSize = Math.min(bytesAvailable, maxBufferSize);
 					bytesRead = dataStream.read(buffer, 0, bufferSize);
 					
-					percent = (int)(100.0f * ( ((float)fileSize - (float)bytesAvailable) / (float)fileSize));
+					percent = (int)(100.0f * ( ((float)fileSize - (float)bytesAvailable) / fileSize));
 					
 					if (percent > lastPercent + 1) {
 						// update notification with percentage
