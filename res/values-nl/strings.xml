@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Upload wachtrij</string>
+<string name="press_to_cancel">Klik om te annuleren</string>
+<string name="uploading">Uploaden</string>
+<string name="anonymizing">Anonimiseren</string>
+<string name="anonymizing_info">Het verwijderen van EXIF-metadata</string>
+<string name="upload_failed">Upload mislukt</string>
+<string name="upload_failed_info">Klik hier voor meer foto's te bekijken</string>
+<string name="upload_complete">Het uploaden is voltooid</string>
+</resources>
