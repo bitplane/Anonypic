@@ -48,7 +48,8 @@
     <supports-screens/>
     
     <uses-permission android:name="android.permission.INTERNET" />
+    
     <uses-sdk android:minSdkVersion="3"
-    		  android:targetSdkVersion="4"/>
+			  android:targetSdkVersion="4" />
 
 </manifest> 

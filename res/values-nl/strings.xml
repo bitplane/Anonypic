@@ -7,6 +7,6 @@
 <string name="anonymizing">Anonimiseren</string>
 <string name="anonymizing_info">Het verwijderen van EXIF-metadata</string>
 <string name="upload_failed">Upload mislukt</string>
-<string name="upload_failed_info">Klik hier voor meer foto's te bekijken</string>
+<string name="upload_failed_info">Klik hier voor meer foto\'s te bekijken</string>
 <string name="upload_complete">Het uploaden is voltooid</string>
 </resources>
