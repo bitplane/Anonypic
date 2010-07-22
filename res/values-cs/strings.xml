@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Upload ve frontě</string>
+<string name="press_to_cancel">Stiskněte tlačítko pro zrušení</string>
+<string name="uploading">Nahrávání</string>
+<string name="anonymizing">Tvorba anonymní</string>
+<string name="anonymizing_info">Odstranění EXIF metadata</string>
+<string name="upload_failed">Nahrání se nezdařilo</string>
+<string name="upload_failed_info">Klikněte pro zobrazení fotografie</string>
+<string name="upload_complete">Upload kompletní</string>
+</resources>
