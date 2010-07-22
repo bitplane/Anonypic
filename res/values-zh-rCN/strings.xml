@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+
+
+
+
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">已位于上传队列中</string>
+<string name="press_to_cancel">点击取消</string>
+<string name="uploading">上传中</string>
+<string name="anonymizing">匿名中</string>
+<string name="anonymizing_info">正在删除Exif信息</string>
+<string name="upload_failed">上传失败</string>
+<string name="upload_failed_info">点击返回到图像</string>
+<string name="upload_complete">上传完成</string>
+</resources>
