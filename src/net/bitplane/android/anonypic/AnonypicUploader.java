@@ -47,7 +47,6 @@ public class AnonypicUploader extends Service {
     
     @Override
     public void onCreate() {
-    	Context context       = getApplicationContext();
     	mNotificationManager  = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     	mActiveUploads        = new ArrayList<ActiveUpload>();
     }
@@ -92,7 +91,7 @@ public class AnonypicUploader extends Service {
         // instantiate the notification
         int icon                  = R.drawable.notify; // need smaller notification icon at some point
         Uri dataStreamUri         = (Uri) intent.getExtras().getParcelable(Intent.EXTRA_STREAM);
-        String filePath           = dataStreamUri.getPath();
+        //String filePath           = dataStreamUri.getPath();
         CharSequence tickerText   = getString(R.string.upload_queued);
         long when                 = System.currentTimeMillis();
         Notification notification = new Notification(icon, tickerText, when);
@@ -191,7 +190,6 @@ public class AnonypicUploader extends Service {
 			InputStream dataStream; 
 			URL connectURL;
 			double randCode    = Math.random();
-			String fileName    = "upload";
 			String removalCode = "removal denied " + String.valueOf(randCode);
 			String lineEnd     = "\r\n";
 			String twoHyphens  = "--";

@@ -1,15 +1,7 @@
 package net.bitplane.android.anonypic;
 
-import java.io.InputStream;
-
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
-import net.bitplane.android.anonypic.AnonypicUploader;
-
-import android.util.Log;
 
 /** The main entry point for sharing an image.
  * 
