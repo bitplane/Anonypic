@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">アップロードキューにされている</string>
+<string name="press_to_cancel">キャンセル</string>
+<string name="uploading">キャンセヒカル</string>
+<string name="anonymizing">匿名化</string>
+<string name="anonymizing_info">削除EXIFメタデータ</string>
+<string name="upload_failed">アップロードに失敗しました</string>
+<string name="upload_failed_info">をクリックして画像を表示するには</string>
+<string name="upload_complete">アップロードが完了</string>
+</resources>
