@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">익명 사진</string>
+<string name="upload_queued">업로드 대기</string>
+<string name="press_to_cancel">클릭 취소</string>
+<string name="uploading">업로드</string>
+<string name="anonymizing">익명</string>
+<string name="anonymizing_info">제거의 EXIF</string>
+<string name="upload_failed">업로드하지 못했습니다</string>
+<string name="upload_failed_info">클릭하여 사진을 볼 수 있습니다</string>
+<string name="upload_complete">업로드 완료</string>
+</resources>
