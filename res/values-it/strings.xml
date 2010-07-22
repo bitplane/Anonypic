@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Anonypic</string>
+<string name="upload_queued">Carica in coda</string>
+<string name="press_to_cancel">Premere qui per annullare</string>
+<string name="uploading">Caricamento</string>
+<string name="anonymizing">Trasformazione in forma anonima</string>
+<string name="anonymizing_info">Rimozione dei metadati EXIF</string>
+<string name="upload_failed">Caricamento non riuscito</string>
+<string name="upload_failed_info">Clicca per vedere la foto</string>
+<string name="upload_complete">Caricamento completo</string>
+</resources>
